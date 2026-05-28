@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Delifood B2B - Gestión de Pedidos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5" style="max-width: 600px;">
+        <div id="seccion-login" class="card shadow p-4">
+            <h3 class="text-center mb-4"><i class="fas fa-utensils text-success"></i> Delifood B2B</h3>
+            <div class="mb-3">
+                <label class="form-label">Usuario</label>
+                <input type="text" id="username" class="form-control" placeholder="cliente o admin">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contraseña</label>
+                <input type="password" id="password" class="form-control" placeholder="123">
+            </div>
+            <button class="btn btn-success w-100" onclick="login()">Ingresar</button>
+        </div>
+
+        <div id="seccion-cliente" class="card shadow p-4" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4>Panel Cliente - Crear Pedido</h4>
+                <button class="btn btn-sm btn-outline-danger" onclick="logout()">Salir</button>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nombre del Restaurante</label>
+                <input type="text" id="restaurante" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Producto Gourmet</label>
+                <input type="text" id="producto" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cantidad</label>
+                <input type="number" id="cantidad" class="form-control">
+            </div>
+            <button class="btn btn-primary w-100 mb-4" onclick="crearPedido()">Enviar Pedido</button>
+            
+            <h5>Mis Pedidos</h5>
+            <table class="table table-striped">
+                <thead><tr><th>ID</th><th>Restaurante</th><th>Producto</th><th>Cant.</th><th>Estado</th></tr></thead>
+                <tbody id="tabla-cliente"></tbody>
+            </table>
+        </div>
+
+        <div id="seccion-admin" class="card shadow p-4" style="display: none;" style="max-width: 800px;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4>Panel Administrador - Control Global</h4>
+                <button class="btn btn-sm btn-outline-danger" onclick="logout()">Salir</button>
+            </div>
+            <table class="table table-hover">
+                <thead><tr><th>ID</th><th>Restaurante</th><th>Producto</th><th>Cant.</th><th>Estado</th><th>Acción</th></tr></thead>
+                <tbody id="tabla-admin"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
