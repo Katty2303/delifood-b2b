@@ -2,64 +2,89 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delifood B2B - Gestión de Pedidos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/all.min.css" rel="stylesheet">
+    <!-- Cargamos Bootstrap y FontAwesome por CDN para diseñar a máxima velocidad -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
-    <div class="container mt-5" style="max-width: 600px;">
-        <div id="seccion-login" class="card shadow p-4">
-            <h3 class="text-center mb-4"><i class="fas fa-utensils text-success"></i> Delifood B2B</h3>
+    <div class="container mt-5" style="max-width: 650px;">
+        
+        <!-- ==================== SECCIÓN 1: LOGIN SIMULADO ==================== -->
+        <div id="seccion-login" class="card shadow-sm p-4 rounded-3 bg-white">
+            <h3 class="text-center mb-4 text-success"><i class="fa fa-cutlery"></i> Delifood B2B</h3>
+            <p class="text-muted text-center small">Inicia sesión como "cliente" o "admin" con la clave "123"</p>
             <div class="mb-3">
-                <label class="form-label">Usuario</label>
-                <input type="text" id="username" class="form-control" placeholder="cliente o admin">
+                <label class="form-label font-monospace fw-bold">Usuario</label>
+                <input type="text" id="username" class="form-control" placeholder="Ej: cliente">
             </div>
             <div class="mb-3">
-                <label class="form-label">Contraseña</label>
-                <input type="password" id="password" class="form-control" placeholder="123">
+                <label class="form-label font-monospace fw-bold">Contraseña</label>
+                <input type="password" id="password" class="form-control" placeholder="Ej: 123">
             </div>
-            <button class="btn btn-success w-100" onclick="login()">Ingresar</button>
+            <button class="btn btn-success w-100 fw-bold py-2" onclick="login()">Ingresar al Sistema</button>
         </div>
 
-        <div id="seccion-cliente" class="card shadow p-4" style="display: none;">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4>Panel Cliente - Crear Pedido</h4>
-                <button class="btn btn-sm btn-outline-danger" onclick="logout()">Salir</button>
+        <!-- ==================== SECCIÓN 2: VISTA CLIENTE ==================== -->
+        <div id="seccion-cliente" class="card shadow-sm p-4 rounded-3 bg-white" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                <h4 class="text-primary"><i class="fa fa-shopping-basket"></i> Panel Cliente</h4>
+                <button class="btn btn-sm btn-outline-danger font-monospace" onclick="logout()">Cerrar Sesión</button>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Nombre del Restaurante</label>
-                <input type="text" id="restaurante" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Producto Gourmet</label>
-                <input type="text" id="producto" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Cantidad</label>
-                <input type="number" id="cantidad" class="form-control">
-            </div>
-            <button class="btn btn-primary w-100 mb-4" onclick="crearPedido()">Enviar Pedido</button>
             
-            <h5>Mis Pedidos</h5>
-            <table class="table table-striped">
-                <thead><tr><th>ID</th><th>Restaurante</th><th>Producto</th><th>Cant.</th><th>Estado</th></tr></thead>
-                <tbody id="tabla-cliente"></tbody>
-            </table>
+            <!-- Formulario de ingreso de pedido -->
+            <div class="bg-light p-3 rounded-3 mb-4">
+                <h6 class="fw-bold mb-3">Registrar Nuevo Pedido</h6>
+                <div class="mb-2">
+                    <label class="small fw-bold">Nombre del Restaurante</label>
+                    <input type="text" id="restaurante" class="form-control form-control-sm">
+                </div>
+                <div class="mb-2">
+                    <label class="small fw-bold">Producto</label>
+                    <input type="text" id="producto" class="form-control form-control-sm">
+                </div>
+                <div class="mb-3">
+                    <label class="small fw-bold">Cantidad</label>
+                    <input type="number" id="cantidad" class="form-control form-control-sm">
+                </div>
+                <button class="btn btn-primary btn-sm w-100" onclick="crearPedido()">Enviar Pedido</button>
+            </div>
+            
+            <!-- Historial de pedidos del cliente -->
+            <h5 class="mb-3 text-secondary">Mis Pedidos Enviados</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm small text-center align-middle">
+                    <thead class="table-dark">
+                        <tr><th>ID</th><th>Restaurante</th><th>Producto</th><th>Cant.</th><th>Estado</th></tr>
+                    </thead>
+                    <tbody id="tabla-cliente"></tbody>
+                </table>
+            </div>
         </div>
 
-        <div id="seccion-admin" class="card shadow p-4" style="display: none;" style="max-width: 800px;">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4>Panel Administrador - Control Global</h4>
-                <button class="btn btn-sm btn-outline-danger" onclick="logout()">Salir</button>
+        <!-- ==================== SECCIÓN 3: VISTA ADMINISTRADOR ==================== -->
+        <div id="seccion-admin" class="card shadow-sm p-4 rounded-3 bg-white" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                <h4 class="text-danger"><i class="fa fa-cogs"></i> Panel Administrador</h4>
+                <button class="btn btn-sm btn-outline-danger font-monospace" onclick="logout()">Cerrar Sesión</button>
             </div>
-            <table class="table table-hover">
-                <thead><tr><th>ID</th><th>Restaurante</th><th>Producto</th><th>Cant.</th><th>Estado</th><th>Acción</th></tr></thead>
-                <tbody id="tabla-admin"></tbody>
-            </table>
+            
+            <h5 class="mb-3 text-secondary">Listado Global de Pedidos</h5>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered table-sm small text-center align-middle">
+                    <thead class="table-dark">
+                        <tr><th>ID</th><th>Restaurante</th><th>Producto</th><th>Cant.</th><th>Estado</th><th>Acción</th></tr>
+                    </thead>
+                    <tbody id="tabla-admin"></tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 
+    <!-- Vinculamos la lógica de JavaScript que crearemos en el siguiente paso -->
     <script src="app.js"></script>
 </body>
 </html>
